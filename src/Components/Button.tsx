@@ -15,9 +15,14 @@ export const Button = ({
   endIcon,
   onClick,
 }: ButtonProps) => {
-  const baseStyles = "rounded px-4 py-2 font-medium flex items-center gap-2";
+  const baseStyles =
+    "rounded px-4 py-2 font-medium flex items-center gap-2 text-white transition-all duration-300";
+
   const variantStyles =
-    variant === "primary" ? "bg-blue-600 text-white" : "bg-gray-300 text-black";
+    variant === "primary"
+      ? "bg-[#10B981] hover:bg-[#059669]" // Emerald Green with Hover Effect
+      : "bg-gray-300 text-black hover:bg-gray-400"; // Keeping Secondary Simple
+
   const sizeStyles =
     size === "sm" ? "text-sm" : size === "md" ? "text-base" : "text-lg";
 
