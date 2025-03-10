@@ -3,33 +3,37 @@ import { Button } from "./Components/Button";
 import { Card } from "./Components/Card";
 import { BiPlus } from "react-icons/bi";
 import { CreateContentModal } from "./Components/CreateContentModal";
-import { SideBar } from "./Components/SideBar"; // Import Sidebar
+import { SideBar } from "./Components/SideBar";
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <div className="flex h-screen">
-      {/* Sidebar Section */}
+      {/* Sidebar */}
       <SideBar />
 
       {/* Main Content */}
-      <div className="p-4 flex-1">
-        {/* Button Section */}
-        <div className="flex justify-end gap-4">
-          <Button
-            text="Add Content"
-            variant="secondary"
-            size="lg"
-            onClick={() => setIsModalOpen(true)}
-            startIcon={<BiPlus />}
-          />
-          <Button
-            text="Click Here"
-            variant="primary"
-            size="lg"
-            onClick={() => {}}
-          />
+      <div className="p-4 flex-1 ml-64">
+        {/* Navbar - Buttons aligned to the right */}
+        <div className="flex justify-between items-center mb-4">
+          <div className="flex gap-4 ml-auto">
+            {" "}
+            {/* Moves buttons to the right */}
+            <Button
+              text="Add Content"
+              variant="secondary"
+              size="lg"
+              onClick={() => setIsModalOpen(true)}
+              startIcon={<BiPlus />}
+            />
+            <Button
+              text="Click Here"
+              variant="primary"
+              size="lg"
+              onClick={() => {}}
+            />
+          </div>
         </div>
 
         {/* Create Content Modal */}

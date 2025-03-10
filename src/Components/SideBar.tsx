@@ -1,43 +1,47 @@
 import {
-  IoLogoTwitter,
-  IoVideocam,
-  IoDocument,
-  IoLink,
-  IoPricetag,
-} from "react-icons/io5";
+  FaTwitter,
+  FaVideo,
+  FaFileAlt,
+  FaLink,
+  FaHashtag,
+} from "react-icons/fa";
 
 export function SideBar() {
   return (
-    <div className="h-screen w-64 bg-white shadow-md p-4">
-      {/* Header */}
-      <div className="flex items-center space-x-2 mb-6">
-        <img src="/logo.png" alt="Second Brain Logo" className="h-6 w-6" />
-        <h2 className="text-lg font-semibold text-gray-800">Second Brain</h2>
-      </div>
-
-      {/* Navigation */}
-      <ul className="space-y-4 text-gray-700">
-        <li className="flex items-center space-x-2 cursor-pointer hover:text-black">
-          <IoLogoTwitter size={20} />
-          <span>Tweets</span>
-        </li>
-        <li className="flex items-center space-x-2 cursor-pointer hover:text-black">
-          <IoVideocam size={20} />
-          <span>Videos</span>
-        </li>
-        <li className="flex items-center space-x-2 cursor-pointer hover:text-black">
-          <IoDocument size={20} />
-          <span>Documents</span>
-        </li>
-        <li className="flex items-center space-x-2 cursor-pointer hover:text-black">
-          <IoLink size={20} />
-          <span>Links</span>
-        </li>
-        <li className="flex items-center space-x-2 cursor-pointer hover:text-black">
-          <IoPricetag size={20} />
-          <span>Tags</span>
-        </li>
-      </ul>
+    <div className="fixed inset-y-0 left-0 bg-white shadow-lg w-64 p-4">
+      <h1 className="text-xl font-bold text-[#10B981] mb-6">Second Brain</h1>
+      <nav className="space-y-4 text-gray-700">
+        <a
+          href="/tweets"
+          className="flex items-center gap-3 hover:text-[#10B981]"
+        >
+          <FaTwitter size={20} /> Tweets
+        </a>
+        <a
+          href="/videos"
+          className="flex items-center gap-3 hover:text-[#10B981]"
+        >
+          <FaVideo size={20} /> Videos
+        </a>
+        <a
+          href="/documents"
+          className="flex items-center gap-3 hover:text-[#10B981]"
+        >
+          <FaFileAlt size={20} /> Documents
+        </a>
+        <a
+          href="/links"
+          className="flex items-center gap-3 hover:text-[#10B981]"
+        >
+          <FaLink size={20} /> Links
+        </a>
+        <a
+          href="/tags"
+          className="flex items-center gap-3 hover:text-[#10B981]"
+        >
+          <FaHashtag size={20} /> Tags
+        </a>
+      </nav>
     </div>
   );
 }
