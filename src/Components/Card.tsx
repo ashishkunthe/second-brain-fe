@@ -22,7 +22,7 @@ export function Card({
   }, [type]);
 
   return (
-    <div className="max-w-xs w-72 mx-auto border rounded-lg p-4 shadow-md bg-white">
+    <div className="max-w-xs w-72 mx-auto border rounded-lg p-4 shadow-md bg-white min-h-48">
       <div className="flex justify-between items-center mb-2">
         {/* Title with Dynamic Icon */}
         <div className="flex items-center gap-2">
@@ -49,7 +49,7 @@ export function Card({
       <div className="rounded-lg overflow-hidden">
         {type === "twitter" ? (
           <blockquote className="twitter-tweet">
-            <a href={link}></a>
+            <a href={link.replace("x.com", "twitter.com")}></a>
           </blockquote>
         ) : (
           <iframe
