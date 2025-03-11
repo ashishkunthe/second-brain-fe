@@ -1,5 +1,5 @@
 import { useState, ChangeEvent, FormEvent } from "react";
-import { Input } from "../Components/CreateContentModal";
+import { Input } from "../Components/Input";
 import { Button } from "../Components/Button";
 
 interface SignUpFormData {
@@ -33,24 +33,14 @@ export function SignUp() {
             <label className="block text-gray-700 font-medium mb-1">
               Username
             </label>
-            <Input
-              type="text"
-              value={formData.username}
-              onChange={() => handleChange("username")}
-              placeholder="Enter your username"
-            />
+            <Input placeholder="Enter your username" />
           </div>
 
           <div className="mb-4">
             <label className="block text-gray-700 font-medium mb-1">
               Password
             </label>
-            <Input
-              type="password"
-              value={formData.password}
-              onChange={() => handleChange("password")}
-              placeholder="Enter your password"
-            />
+            <Input placeholder="Enter your password" />
           </div>
           <div className="flex justify-center">
             <Button

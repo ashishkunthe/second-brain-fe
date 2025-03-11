@@ -1,5 +1,5 @@
-import { useState, ChangeEvent, FormEvent } from "react";
-import { Input } from "../Components/CreateContentModal";
+import { useState, ChangeEvent, FormEvent, useRef } from "react";
+import { Input } from "../Components/Input";
 import { Button } from "../Components/Button";
 
 interface SignInFormData {
@@ -8,15 +8,17 @@ interface SignInFormData {
 }
 
 export function SignIn() {
+  const usernameRef = useRef();
+  const passwordRef = useRef();
   const [formData, setFormData] = useState<SignInFormData>({
     username: "",
     password: "",
   });
 
-  const handleChange =
-    (field: keyof SignInFormData) => (e: ChangeEvent<HTMLInputElement>) => {
-      setFormData((prev) => ({ ...prev, [field]: e.target.value }));
-    };
+  //   const handleChange =
+  //     (field: keyof SignInFormData) => (e: ChangeEvent<HTMLInputElement>) => {
+  //       setFormData((prev) => ({ ...prev, [field]: e.target.value }));
+  //     };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -33,24 +35,14 @@ export function SignIn() {
             <label className="block text-gray-700 font-medium mb-1">
               Username
             </label>
-            <Input
-              type="text"
-              value={formData.username}
-              onChange={() => handleChange("username")}
-              placeholder="Enter your username"
-            />
+            <Input ref={usernameRef} placeholder="Enter your username" />
           </div>
 
           <div className="mb-4">
             <label className="block text-gray-700 font-medium mb-1">
               Password
             </label>
-            <Input
-              type="password"
-              value={formData.password}
-              onChange={() => handleChange("password")}
-              placeholder="Enter your password"
-            />
+            <Input ref={passwordRef} placeholder="Enter your password" />
           </div>
           <div className="flex justify-center">
             <Button

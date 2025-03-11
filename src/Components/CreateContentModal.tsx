@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { IoClose } from "react-icons/io5"; // Import close icon
 import { Button } from "./Button";
+import { Input } from "./Input";
 
 export function CreateContentModal({
   isOpen,
@@ -45,18 +46,8 @@ export function CreateContentModal({
         {/* Form to handle submission */}
         <form onSubmit={handleSubmit}>
           {/* Input Fields */}
-          <Input
-            type="text"
-            placeholder="Title"
-            value={title}
-            onChange={setTitle}
-          />
-          <Input
-            type="text"
-            placeholder="Link"
-            value={link}
-            onChange={setLink}
-          />
+          <Input placeholder="Title" />
+          <Input placeholder="Link" />
 
           {/* Submit Button */}
           <div className="mt-6 flex justify-end">
@@ -74,26 +65,3 @@ export function CreateContentModal({
 }
 
 // Input Component with Better State Handling
-export function Input({
-  type,
-  onChange,
-  placeholder,
-  value,
-}: {
-  type: string;
-  onChange: (value: string) => void;
-  placeholder: string;
-  value: string;
-}) {
-  return (
-    <div className="mt-4">
-      <input
-        type={type}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        placeholder={placeholder}
-        className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
-    </div>
-  );
-}
