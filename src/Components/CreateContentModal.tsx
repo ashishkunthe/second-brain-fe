@@ -74,7 +74,7 @@ export function CreateContentModal({
 }
 
 // Input Component with Better State Handling
-function Input({
+export function Input({
   type,
   onChange,
   placeholder,
