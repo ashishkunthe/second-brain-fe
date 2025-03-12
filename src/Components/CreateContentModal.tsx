@@ -1,7 +1,14 @@
-import { useState } from "react";
 import { IoClose } from "react-icons/io5"; // Import close icon
 import { Button } from "./Button";
 import { Input } from "./Input";
+import { useRef, useState } from "react";
+import axios from "axios";
+import { BACK_END_URL } from "../utils/config";
+
+enum ContentType {
+  Youtube = "youtube",
+  Twitter = "tweet",
+}
 
 export function CreateContentModal({
   isOpen,
@@ -12,17 +19,41 @@ export function CreateContentModal({
 }) {
   if (!isOpen) return null;
 
-  // State for inputs
-  const [title, setTitle] = useState("");
-  const [link, setLink] = useState("");
+  const titleRef = useRef<HTMLInputElement>(null);
+  const linkRef = useRef<HTMLInputElement>(null);
+  const [type, setType] = useState(ContentType.Youtube);
 
-  // Handle Submit
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault(); // Prevent page refresh
-    console.log("Title:", title);
-    console.log("Link:", link);
-    onClose(); // Close modal after submission
-  };
+  async function addContent() {
+    const title = titleRef.current?.value;
+    const link = linkRef.current?.value;
+
+    if (!title || !link) {
+      alert("Please fill in all fields!");
+      return;
+    }
+
+    try {
+      await axios.post(
+        `${BACK_END_URL}/api/v1/content`,
+        { link, type, title },
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
+
+      // Clear inputs after submission
+      if (titleRef.current) titleRef.current.value = "";
+      if (linkRef.current) linkRef.current.value = "";
+
+      // Close the modal
+      onClose();
+    } catch (error) {
+      console.error("Error submitting content:", error);
+      alert("Failed to submit content. Please try again.");
+    }
+  }
 
   return (
     <div
@@ -41,27 +72,43 @@ export function CreateContentModal({
           <IoClose size={24} />
         </button>
 
-        <h2 className="text-lg font-bold mb-4">Create Content</h2>
+        <h2 className="text-lg font-bold mb-4 text-center">Create Content</h2>
 
-        {/* Form to handle submission */}
-        <form onSubmit={handleSubmit}>
-          {/* Input Fields */}
-          <Input placeholder="Title" />
-          <Input placeholder="Link" />
+        {/* Input Fields */}
+        <div className="mb-4">
+          <Input ref={titleRef} placeholder="Title" />
+        </div>
 
-          {/* Submit Button */}
-          <div className="mt-6 flex justify-end">
-            <Button
-              size="md"
-              text="Submit"
-              variant="primary"
-              onClick={() => handleSubmit}
-            />
-          </div>
-        </form>
+        <div className="mb-4">
+          <Input ref={linkRef} placeholder="Link" />
+        </div>
+
+        {/* Type Selection Buttons */}
+        <div className="flex justify-center gap-3 mb-4">
+          <Button
+            text="Youtube"
+            variant={type === ContentType.Youtube ? "primary" : "secondary"}
+            onClick={() => setType(ContentType.Youtube)}
+            size="md"
+          />
+          <Button
+            text="Twitter"
+            variant={type === ContentType.Twitter ? "primary" : "secondary"}
+            onClick={() => setType(ContentType.Twitter)}
+            size="md"
+          />
+        </div>
+
+        {/* Submit Button */}
+        <div className="mt-6 flex justify-center">
+          <Button
+            size="md"
+            text="Submit"
+            variant="primary"
+            onClick={addContent}
+          />
+        </div>
       </div>
     </div>
   );
 }
-
-// Input Component with Better State Handling

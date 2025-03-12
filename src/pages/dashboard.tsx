@@ -4,9 +4,12 @@ import { Card } from "../Components/Card";
 import { BiPlus } from "react-icons/bi";
 import { CreateContentModal } from "../Components/CreateContentModal";
 import { SideBar } from "../Components/SideBar";
+import { useContent } from "../hooks/useContent";
+import { CiShare2 } from "react-icons/ci";
 
 export function Dashboard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { contents, loading, error } = useContent();
 
   return (
     <div className="flex h-screen">
@@ -18,20 +21,19 @@ export function Dashboard() {
         {/* Navbar - Buttons aligned to the right */}
         <div className="flex justify-between items-center mb-4">
           <div className="flex gap-4 ml-auto">
-            {" "}
-            {/* Moves buttons to the right */}
             <Button
               text="Add Content"
-              variant="secondary"
+              variant="primary"
               size="lg"
               onClick={() => setIsModalOpen(true)}
               startIcon={<BiPlus />}
             />
             <Button
-              text="Click Here"
-              variant="primary"
+              text="Share Brain"
+              variant="secondary"
               size="lg"
               onClick={() => {}}
+              startIcon={<CiShare2 />}
             />
           </div>
         </div>
@@ -42,28 +44,19 @@ export function Dashboard() {
           onClose={() => setIsModalOpen(false)}
         />
 
+        {/* Loading/Error State */}
+        {loading && <p className="text-center text-gray-500">Loading...</p>}
+        {error && <p className="text-center text-red-500">{error}</p>}
+
         {/* Cards Section */}
         <div className="flex flex-wrap justify-center gap-4 mt-8">
-          <Card
-            title="Twitter Post"
-            type="twitter"
-            link="https://x.com/ashish88390/status/1894837242989883700"
-          />
-          <Card
-            title="Jaun Elia Poetry"
-            type="youtube"
-            link="https://youtu.be/vmA1DIKB9ZQ?si=T5F0cD3h6F7KlK5z"
-          />
-          <Card
-            title="Twitter Post"
-            type="twitter"
-            link="https://x.com/ashish88390/status/1894837242989883700"
-          />
-          <Card
-            title="Jaun Elia Poetry"
-            type="youtube"
-            link="https://youtu.be/vmA1DIKB9ZQ?si=T5F0cD3h6F7KlK5z"
-          />
+          {contents.length > 0 ? (
+            contents.map(({ type, title, link }, index) => (
+              <Card key={index} title={title} type={type} link={link} />
+            ))
+          ) : (
+            <p className="text-center text-gray-500">No content available.</p>
+          )}
         </div>
       </div>
     </div>

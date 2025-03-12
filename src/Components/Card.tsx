@@ -10,10 +10,10 @@ export function Card({
 }: {
   title: string;
   link: string;
-  type: "twitter" | "youtube";
+  type: "tweet" | "youtube";
 }) {
   useEffect(() => {
-    if (type === "twitter") {
+    if (type === "tweet") {
       const script = document.createElement("script");
       script.src = "https://platform.twitter.com/widgets.js";
       script.async = true;
@@ -26,7 +26,7 @@ export function Card({
       <div className="flex justify-between items-center mb-2">
         {/* Title with Dynamic Icon */}
         <div className="flex items-center gap-2">
-          {type === "twitter" ? (
+          {type === "tweet" ? (
             <CiTwitter className="text-xl text-blue-500" />
           ) : (
             <FaYoutube className="text-xl text-red-500" />
@@ -47,7 +47,7 @@ export function Card({
 
       {/* Content Rendering */}
       <div className="rounded-lg overflow-hidden">
-        {type === "twitter" ? (
+        {type === "tweet" ? (
           <blockquote className="twitter-tweet">
             <a href={link.replace("x.com", "twitter.com")}></a>
           </blockquote>
